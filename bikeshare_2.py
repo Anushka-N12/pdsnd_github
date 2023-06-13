@@ -15,7 +15,7 @@ def get_filters():
         if city in ['chicago', 'new york city', 'washington']:
             break
         else:
-            print("Invalid input. Try again. Accepted answers are Chicago/New York City/Washington.")
+            print("Invalid input. Accepted answers are Chicago/New York City/Washington. Try again. ")
     
     #Ask target month & day
     while True:
@@ -23,7 +23,7 @@ def get_filters():
         if choice in ['month', 'day', 'both', 'neither']:
             break
         else:
-            print("Invalid input. Try again. Accepted answers are month/day/both/neither.")
+            print("Invalid input. Accepted answers are month/day/both/neither. Try again.")
     month, day = 'all', 'all'
     if choice in ['month', 'both']:
         while True:
@@ -31,14 +31,14 @@ def get_filters():
             if month in ['january', 'february', 'march', 'april', 'may', 'june']:
                 break
             else:
-                print("Invalid input. Try again. Accepted answers are January/February/March/April/May/June.")
+                print("Invalid input. Accepted answers are January/February/March/April/May/June. Try again.")
     if choice in ['day', 'both']:
         while True:
             day = input("For which day of the week? : ").lower()
             if day in ['monday', 'tuesday', 'wednesday', 'thursday', 'friday', 'saturday', 'sunday']:
                 break
             else:
-                print("Invalid input. Try again. Accepted answers are monday/tuesday/wednesday/thursday/friday/saturday/sunday.")
+                print("Invalid input. Accepted answers are monday/tuesday/wednesday/thursday/friday/saturday/sunday. Try again.")
 
     print('-'*40)
     return city, month, str(day)
@@ -140,7 +140,7 @@ def display_raw_data(df):
         elif choice == 'no':
             break
         else:
-            print("Invalid input. Try again. Accepted answers are yes/no.")
+            print("Invalid input. Accepted answers are yes/no. Try again.")
 
 def main():
     while True:
@@ -153,7 +153,7 @@ def main():
         user_stats(df, city)
         display_raw_data(df)
 
-        restart = input('\nWould you like to restart? Enter yes or no.\n').lower()
+        restart = input('\nWould you like to restart? : ').lower()
         if restart != 'yes':
             break
 
