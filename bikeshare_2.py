@@ -1,11 +1,14 @@
+#Importing required modules
 import time
 import pandas as pd
 import numpy as np
 
+#This dictionary points to the respective CSV files, based on chosen city
 CITY_DATA = { 'chicago': 'chicago.csv',
               'new york city': 'new_york_city.csv',
               'washington': 'washington.csv' }
 
+#This function collects user choices
 def get_filters():
     print('Hello! Let\'s explore some US bikeshare data!')
     
@@ -43,6 +46,7 @@ def get_filters():
     print('-'*40)
     return city, month, str(day)
 
+#This function returns respective dataset with chosen time restrictions
 def load_data(city, month, day):
    
     #Assumption made that datasets are in the same directory
@@ -58,8 +62,8 @@ def load_data(city, month, day):
 
     return df
 
+#This function displays statistics on the most frequent times of travel
 def time_stats(df):
-    """Displays statistics on the most frequent times of travel."""
     print("\nAs per the given month & day restrictions,")
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
@@ -77,8 +81,8 @@ def time_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#This function displays statistics on the most popular stations and trip
 def station_stats(df):
-    """Displays statistics on the most popular stations and trip."""
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
@@ -91,8 +95,8 @@ def station_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#This function displays statistics on the total and average trip duration
 def trip_duration_stats(df):
-    """Displays statistics on the total and average trip duration."""
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
@@ -103,8 +107,8 @@ def trip_duration_stats(df):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#This function displays statistics on bikeshare users
 def user_stats(df, city):
-    """Displays statistics on bikeshare users."""
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
@@ -124,8 +128,8 @@ def user_stats(df, city):
     print("\nThis took %s seconds." % (time.time() - start_time))
     print('-'*40)
 
+#This function displays raw data as per user's request
 def display_raw_data(df):
-    """Displays raw data as per user's request"""
     n = 0      #Refernce to indexes being printed
     while n < len(df):
         choice = input("Would you like to see 5 rows of raw data? : ").lower()
@@ -142,6 +146,7 @@ def display_raw_data(df):
         else:
             print("Invalid input. Try again. Accepted answers are yes/no.")
 
+#Main function that calls all the others
 def main():
     while True:
         city, month, day = get_filters()
@@ -157,6 +162,6 @@ def main():
         if restart.lower() != 'yes':
             break
 
-
+#Checks if this script is being run directly
 if __name__ == "__main__":
 	main()
