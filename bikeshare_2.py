@@ -50,7 +50,11 @@ def get_filters():
 def load_data(city, month, day):
    
     #Assumption made that datasets are in the same directory
+
+    #Loading dataset
     df = pd.read_csv(CITY_DATA[city])
+
+    #Filtering data by month & day, if requested
     if month != 'all':
         months = {'january':'01', 'february':'02', 'march':'03', 'april':'04', 'may':'05', 'june':'06'}
         df = df[df['Start Time'].str.slice(start=5, stop=7) == months[month]]
@@ -68,14 +72,19 @@ def time_stats(df):
     print('\nCalculating The Most Frequent Times of Travel...\n')
     start_time = time.time()
 
+    #Calculating most common month
     most_common_month = df['Start Time'].str.slice(start=5, stop=7).mode().unique()[0]
+    #Output in strings is more understandable, so converting number to string
     months = {'01':'january', '02':'february', '03':'march', '04':'april', '05':'may', '06':'june'}
     print("Most common month of travel  is - ", months[most_common_month])
 
+    ##Calculating most common day of the week
     most_common_day = df['Day of the week'].mode().unique()[0]
+    #Converting day number to string
     days = {0:'monday', 1:'tuesday', 2:'wednesday', 3:'thursday', 4:'friday', 5:'saturday', 6:'sunday'}
     print("Most common day of the week is - ", days[most_common_day])
 
+    #Calculating most common hour
     print("Most common hour of travel is - ", df['Start Time'].str.slice(start=11, stop=13).mode().unique()[0], " hrs.")
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -86,10 +95,13 @@ def station_stats(df):
     print('\nCalculating The Most Popular Stations and Trip...\n')
     start_time = time.time()
 
+    #Calculating most common start station
     print("Most common start station is - ", df['Start Station'].mode().unique()[0])
 
+    #Calculating most common end station
     print("Most common end station is - ", df['End Station'].mode().unique()[0])
 
+    #Calculating most combination
     print("Most common combination of start station and end station trip is - ", (df['Start Station'] + ' to ' + df['End Station']).mode().unique()[0])
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -100,8 +112,11 @@ def trip_duration_stats(df):
     print('\nCalculating Trip Duration...\n')
     start_time = time.time()
 
+    #Calculating duration
     duration = pd.to_datetime(df['End Time']) - pd.to_datetime(df['Start Time'])
+    #Calculating total time 
     print("Total time travelled is - ", duration.sum())
+    #Calculating average time
     print("Average time travelled is - ", duration.mean())
 
     print("\nThis took %s seconds." % (time.time() - start_time))
@@ -112,11 +127,12 @@ def user_stats(df, city):
     print('\nCalculating User Stats...\n')
     start_time = time.time()
 
+    #Displaying counts of user types
     print("Below are counts of user types - ")
     print(df['User Type'].value_counts())
 
     # Display counts of gender
-    if city in ['chicago', 'new york city']:
+    if city in ['chicago', 'new york city']:              #Washington data is not available, do this must be checked
         print("\nBelow are counts of user genders - ")
         print(df['Gender'].value_counts())
         print("\nEarliest birth year found is - ", df['Birth Year'].min())
@@ -130,16 +146,14 @@ def user_stats(df, city):
 
 #This function displays raw data as per user's request
 def display_raw_data(df):
-    n = 0      #Refernce to indexes being printed
+    n = 0      #Reference to indexes being printed
     while n < len(df):
         choice = input("Would you like to see 5 rows of raw data? : ").lower()
         if choice == 'yes':
-            sub_df = df[n:n+5]
+            sub_df = df[n:n+5]            
             cols = len(sub_df.columns)
-            section_1 = sub_df[sub_df.columns[:cols//2]]
-            section_2 = sub_df[sub_df.columns[cols//2:]]
-            print(section_1)
-            print(section_2)
+            print(sub_df[sub_df.columns[:cols//2]])              #Displaying in 2 rows, since it's clearer that way
+            print(section_2 = sub_df[sub_df.columns[cols//2:]])
             n += 5
         elif choice == 'no':
             break
@@ -152,10 +166,11 @@ def main():
         city, month, day = get_filters()
         df = load_data(city, month, day)
 
+        #Calling all defined functions
         time_stats(df)
         station_stats(df)
         trip_duration_stats(df)
-        user_stats(df, city)
+        user_stats(df, city)     #City added since Washington.csv doesn't have some info
         display_raw_data(df)
 
         restart = input('\nWould you like to restart? Enter yes or no.\n')
