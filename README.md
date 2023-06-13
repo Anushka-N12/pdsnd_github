@@ -11,8 +11,9 @@ Udacity Github Assignment
  - I then forked one of Udacity's repositories and made changes, practicing various commands in Git.
 
 ### Files used:
-Datasets provided where of 3 cities in the USA: Chicago, New York City & Washington. 
+ - Given datasets were downloadable resources as part of the "Introduction to Python" course.
+ - They were 3 CSV files, of 3 cities in the USA: Chicago, New York City & Washington. 
 
 ### Credits:
-Udacity, Bertelsmann
+Udacity, Bertelsmann (Scholarship Provider)
 
